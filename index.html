@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>QR-Code Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>QR-Code Generator</h1>
+
+        <label>Anwendungsfall:</label>
+        <select id="useCase" onchange="showFields()">
+            <option value="text">Text / Link</option>
+            <option value="email">E-Mail</option>
+            <option value="phone">Telefon</option>
+            <option value="sms">SMS</option>
+            <option value="wifi">WLAN</option>
+        </select>
+
+        <div id="fields"></div>
+
+        <label>Größe: <span id="sizeDisplay" class="slider-value">256</span> px</label>
+        <input type="range" id="size" min="128" max="512" step="16" value="256" oninput="updateSizeDisplay()">
+
+        <label>Farb-Preset:</label>
+        <select id="preset" onchange="applyPreset()">
+            <option value="">-- Preset wählen --</option>
+            <option value="classic">Schwarz auf Weiß</option>
+            <option value="invert">Weiß auf Schwarz</option>
+            <option value="blue">Blau auf Gelb</option>
+            <option value="green">Grün auf Hellgrau</option>
+        </select>
+
+        <label>Farbe (Vordergrund)</label>
+        <input type="color" id="fgColor" value="#000000">
+
+        <label>Farbe (Hintergrund)</label>
+        <input type="color" id="bgColor" value="#ffffff">
+
+        <button type="button" class="swap-button" onclick="swapColors()" title="Farben tauschen">🔄</button>
+
+        <label>Format:</label>
+        <select id="format">
+            <option value="canvas">PNG</option>
+            <option value="jpeg">JPG</option>
+        </select>
+
+        <button onclick="generateQRCode()">Generieren</button>
+        <button onclick="downloadQRCode()">Download</button>
+
+        <div id="qrcode"></div>
+    </div>
+
+    <script src="qrcode.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
