@@ -6,6 +6,7 @@
     <title>QR-Code Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
 </head>
 
 <body>
@@ -35,11 +36,20 @@
             <option value="green">Grün auf Hellgrau</option>
         </select>
 
-        <label>Farbe (Vordergrund)</label>
-        <input type="color" id="fgColor" value="#000000">
+        <div class="color-picker-wrapper">
+            <span>Vordergrundfarbe:</span>
+            <div class="pickr-wrapper">
+                <div id="fgPickr"></div>
+            </div>
+            
+        </div>
 
-        <label>Farbe (Hintergrund)</label>
-        <input type="color" id="bgColor" value="#ffffff">
+        <div class="color-picker-wrapper">
+            <span>Hintergrundfarbe:</span>
+            <div class="pickr-wrapper">
+                <div id="bgPickr"></div>
+            </div>
+        </div>
 
         <button type="button" class="swap-button" onclick="swapColors()" title="Farben tauschen">🔄</button>
 
@@ -56,6 +66,7 @@
     </div>
 
     <script src="qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
     <script src="script.js"></script>
 </body>
 

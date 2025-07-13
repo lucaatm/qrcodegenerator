@@ -22,16 +22,16 @@ let qr;
 
         function applyPreset() {
             const p = document.getElementById('preset').value;
-            const fg = document.getElementById('fgColor'), bg = document.getElementById('bgColor');
-            if (p === 'classic') { fg.value = "#000"; bg.value = "#fff"; }
-            if (p === 'invert') { fg.value = "#fff"; bg.value = "#000"; }
-            if (p === 'blue') { fg.value = "#00f"; bg.value = "#ff0"; }
-            if (p === 'green') { fg.value = "#008000"; bg.value = "#eee"; }
+            if (p === 'classic') { fgPickr.setColor("#000"); bgPickr.setColor("#fff"); }
+            if (p === 'invert') { fgPickr.setColor("#fff"); bgPickr.setColor("#000"); }
+            if (p === 'blue') { fgPickr.setColor("#00f"); bgPickr.setColor("#ff0"); }
+            if (p === 'green') { fgPickr.setColor("#008000"); bgPickr.setColor("#eee"); }
         }
 
         function swapColors() {
-            const fg = document.getElementById('fgColor'), bg = document.getElementById('bgColor');
-            [fg.value, bg.value] = [bg.value, fg.value];
+            const fg = getFgColor(), bg = getBgColor();
+            fgPickr.setColor(bg);
+            bgPickr.setColor(fg);
         }
 
         function buildContent() {
@@ -67,8 +67,8 @@ let qr;
                 text: content,
                 width: parseInt(document.getElementById('size').value),
                 height: parseInt(document.getElementById('size').value),
-                colorDark: document.getElementById('fgColor').value,
-                colorLight: document.getElementById('bgColor').value
+                colorDark: getFgColor(),
+                colorLight: getBgColor()
             });
         }
 
@@ -81,6 +81,44 @@ let qr;
             const data = canvas.toDataURL(mime);
             const a = document.createElement('a');
             a.href = data; a.download = `qrcode.${ext}`; a.click();
+        }
+
+        let fgPickr = Pickr.create({
+            el: '#fgPickr',
+            theme: 'classic',
+            default: '#000000',
+            components: {
+                preview: true,
+                opacity: false,
+                hue: true,
+                interaction: {
+                    input: true,
+                    save: true
+                }
+            }
+        });
+
+        let bgPickr = Pickr.create({
+            el: '#bgPickr',
+            theme: 'classic',
+            default: '#ffffff',
+            components: {
+                preview: true,
+                opacity: false,
+                hue: true,
+                interaction: {
+                    input: true,
+                    save: true
+                }
+            }
+        });
+
+        function getFgColor() {
+            return fgPickr.getColor().toHEXA().toString();
+        }
+
+        function getBgColor() {
+            return bgPickr.getColor().toHEXA().toString();
         }
 
         showFields();
